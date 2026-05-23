@@ -1,7 +1,1 @@
-{
-  "buildCommand": "npm install",
-  "env": {
-    "EMAIL_USER": "@EMAIL_USER",
-    "EMAIL_PASS": "@EMAIL_PASS"
-  }
-}
+{}
