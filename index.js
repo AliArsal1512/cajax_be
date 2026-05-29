@@ -28,10 +28,36 @@ app.use(
       }
       callback(null, false);
     },
-    methods: ['POST', 'OPTIONS'],
+    methods: ['GET', 'POST', 'OPTIONS'],
   }),
 );
 app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'Cajax backend is running',
+    endpoints: {
+      health: 'GET /api/health',
+      contact: 'POST /api/contact',
+    },
+  });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    emailConfigured: Boolean(
+      process.env.EMAIL_USER && process.env.EMAIL_PASS,
+    ),
+  });
+});
+
+app.get('/api/contact', (req, res) => {
+  res.status(405).json({
+    message: 'This endpoint accepts POST only. Send JSON with name, email, and message.',
+  });
+});
 
 function escapeHtml(value = '') {
   return String(value)
